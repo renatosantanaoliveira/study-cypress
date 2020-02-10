@@ -105,6 +105,13 @@ it('Numbers', () => {
     const floatnumber = 5.2123
 
     expect(number).to.be.equal(4);
-    expect(number).to.be.above(4);
+    //validar se está acima
+    expect(number).to.be.above(3);
+    //validar se está abaixo
+    expect(number).to.be.below(7);
+    expect(number).to.be.equal(5.2123)
+    //validar com a presicao de 0.1
+    expect(number).to.be.closeTo(5.2, 0.1)
+
     
 })
