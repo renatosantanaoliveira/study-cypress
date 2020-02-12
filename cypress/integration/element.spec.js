@@ -5,6 +5,10 @@ describe('Work with basic elements', () => {
         cy.visit('http://www.wcaquino.me/cypress/componentes.html')
     })
 
+    beforeEach(() =>{
+        cy.reload()
+    })
+
     it('Text', () => {
         cy.get('body').should('contain','Cuidado')
         cy.get('span').should('contain','Cuidado')
@@ -22,7 +26,7 @@ describe('Work with basic elements', () => {
         cy.get('#resultado').should('have.text', 'Voltou!')
     })
 
-    it.only('TextFields', () => {
+    it('TextFields', () => {
         cy.get('#formNome')
             .type('Cypress Test')
             .should('have.value', 'Cypress Test')
@@ -41,5 +45,45 @@ describe('Work with basic elements', () => {
             .clear()
             .type('Erro{selectall}acerto', {delay: 100})
             .should('have.value', 'acerto')
+    })
+
+    it('RadioButton', () => {
+        cy.get('#formSexoFem')
+            .click()
+            .should('be.checked')
+
+        cy.get('#formSexoMasc')
+            .should('not.be.checked')
+
+        cy.get('[name=formSexo]').should('have.length', 2)
+    })
+
+    it('Checkbox', () => {
+        cy.get('#formComidaPizza')
+            .click()
+            .should('be.checked')
+
+        cy.get('[name=formComidaFavorita]').click({multiple: true})
+        cy.get('#formComidaPizza').should('not.be.checked')
+        cy.get('#formComidaVegetariana').should('be.checked')
+    })
+
+    it('Combobox', () => {
+        cy.get('[name=formEscolaridade]')
+            .select('1o grau completo')
+            .should('have.value','1graucomp')
+
+            cy.get('[name=formEscolaridade]')
+            .select('2o grau completo')
+            .should('have.value','2graucomp')
+
+        //TODO validar opções do combo
+    })
+
+    it.only('Combo multiplo', () => {
+        cy.get('[data-testid=dataEsportes]')
+            .select(['natacao', 'Corrida'])
+
+        //TODO validar opções selecionadas do combo múltiplo
     })
 })
