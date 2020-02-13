@@ -68,7 +68,7 @@ describe('Work with basic elements', () => {
         cy.get('#formComidaVegetariana').should('be.checked')
     })
 
-    it('Combobox', () => {
+    it.only('Combobox', () => {
         cy.get('[name=formEscolaridade]')
             .select('1o grau completo')
             .should('have.value','1graucomp')
@@ -77,10 +77,21 @@ describe('Work with basic elements', () => {
             .select('2o grau completo')
             .should('have.value','2graucomp')
 
+            cy.get('[data-test=dataEscolaridade] option')
+                .should('have.length', 8)
+
+            cy.get('[data-test=dataEscolaridade] option').then($arr => {
+                const values = []
+                $arr.each(function (){
+                    values.push(this.innerHTML)
+                })
+                expect(values).to.include.members(["Superior", "Mestrado"])
+            })
+
         //TODO validar opções do combo
     })
 
-    it.only('Combo multiplo', () => {
+    it('Combo multiplo', () => {
         cy.get('[data-testid=dataEsportes]')
             .select(['natacao', 'Corrida'])
 

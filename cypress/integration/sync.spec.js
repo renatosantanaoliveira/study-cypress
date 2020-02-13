@@ -34,7 +34,7 @@ describe('Esperas...', () => {
             .should('contain', 'Item 2')
     })
 
-    it.only('Uso do timeout', () => {
+    it('Uso do timeout', () => {
         cy.get('#buttonDelay').click()
         // cy.get('#novoCampo', {timeout: 1000}).should('exist')
         cy.get('#novoCampo').should('exist')
@@ -52,5 +52,16 @@ describe('Esperas...', () => {
             .should('have.length', 1)
         cy.get('#lista li span',)
             .should('have.length', 2)
+    })
+
+    it.only('Should vs Then', () => {
+        cy.get('#buttonListDOM').click()
+
+        //then aguarda o get e should executa direto
+        cy.get('#lista li span',).then($el => {
+            console.log($el)
+            expect($el).to.have.length(1)
+        }).and('have.id', 'buttonListDOM')
+
     })
 })
