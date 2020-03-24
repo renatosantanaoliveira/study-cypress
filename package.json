@@ -8,7 +8,9 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
-    "cypress": "^3.6.0",
+    "cypress": "^3.6.0"
+  },
+  "devDependencies": {
     "cypress-xpath": "^1.4.0"
   }
 }
